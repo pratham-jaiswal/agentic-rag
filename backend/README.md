@@ -13,6 +13,7 @@
 - `ORG_NAME` defines the name of the organization.
 - Create your PDF directory (as in `SOURCE_DOC_DIR`), and store your PDFs in it.
 - You can change the values of these variables in the `.env` file as per your needs.
+- Play around with the system prompt in `app.py` in `rag_agent_node` to customize the behavior of the agent.
 
 ## Get Started
 
