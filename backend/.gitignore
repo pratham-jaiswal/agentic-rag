@@ -1,0 +1,9 @@
+.venv
+.env
+pdfs
+images
+faiss_index
+figures
+.idea
+.vscode
+__pycache__

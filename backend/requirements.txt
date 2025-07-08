@@ -1,0 +1,16 @@
+# Python 3.11.13
+
+unstructured[all-docs]
+
+python-dotenv==1.1.1
+
+langchain_openai==0.3.27
+langchain_google_genai==2.1.6
+langchain_community==0.3.27
+langchain_core==0.3.67
+langgraph==0.5.1
+
+faiss-cpu==1.11.0
+
+fastapi==0.115.14
+uvicorn==0.35.0
