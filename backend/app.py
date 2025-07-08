@@ -83,8 +83,9 @@ def rag_agent_node():
         - Do NOT fabricate or guess answers.
         - Do NOT respond with outside knowledge or opinions.
         - You may reply briefly to greetings but must not offer any unsolicited help.
-
-        Your first action after a user question must be to call `query_vectorstore`.
+        - For basic greetings, do not call the `query_vectorstore` tool, and do not pass anything to `source_pdfs` or `source_images`
+        
+        Your first action after a user question (not greetings) must be to call `query_vectorstore`.
     """
 
     agent = create_react_agent(
@@ -98,7 +99,11 @@ def rag_agent_node():
 
 def structured_response_agent(state: MessagesState):
     response = llm.with_structured_output(ResponseSchema).invoke([
-        SystemMessage(content="You are a structured response agent. Your task is to convert a json response into a structured response."), 
+        SystemMessage(content="""
+            You are a structured response agent. 
+            Your task is to convert a json response into a structured response.
+            If its just a greeting, keep 'source_pdfs' and 'source_images' empty.
+        """), 
         state["messages"][-1]
     ])
 
@@ -136,7 +141,7 @@ async def call_agent(req: Payload):
         if "source_images" in res and res["source_images"]:
             res["source_images"] = [
                 base64.b64encode(open(path, "rb").read()).decode("utf-8")
-                for path in res["source_images"]
+                for path in res["source_images"] if os.path.exists(path)
             ]
         return {
             "result": res
