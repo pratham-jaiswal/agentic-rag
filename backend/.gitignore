@@ -7,3 +7,4 @@ figures
 .idea
 .vscode
 __pycache__
+cron.log
