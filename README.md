@@ -2,6 +2,9 @@
 
 This is a Agentic RAG web app. This indexes the PDF text and images using a vector database (FIASS), only via backend. Then, it allows users to query the knowledge base using natural language. The application uses OpenAI's GPT model to process the queries and return relevant information from the knowledge base, using an agentic approach to retrieve and generate responses.
 
+![Codefactor](https://img.shields.io/codefactor/grade/github/pratham-jaiswal/agentic-rag?style=flat&label=Code%20Quality&labelColor=%23201f31)
+![GitHub License](https://img.shields.io/github/license/pratham-jaiswal/agentic-rag?style=flat&label=License&labelColor=%23201f31)
+
 ## Get Started
 
 - Clone the repository: `git clone https://github.com/pratham-jaiswal/agentic-rag.git`.
