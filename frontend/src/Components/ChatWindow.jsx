@@ -32,7 +32,7 @@ const ChatWindow = () => {
     }));
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/query`, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/query`, {
         chat_history: chatHistory,
       })
       .then((res) => {
@@ -69,7 +69,7 @@ const ChatWindow = () => {
     }));
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/query`, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/query`, {
         chat_history: chatHistory,
       })
       .then((res) => {
