@@ -1,16 +1,36 @@
-import React from 'react';
-import ChatWindow from './Components/ChatWindow.jsx';
-import './App.css';
-import './colors.css';
+import React from "react";
+import ChatWindow from "./Components/ChatWindow.jsx";
+import "./App.css";
+import "./colors.css";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <img src="/logo192.png" alt="Logo" className="logo" />
-        <span className="org-name">Example Org</span>
+        <div className="header-left">
+          <img src="/logo192.png" alt="Logo" className="logo" />
+          <span className="org-name">Example Org</span>
+        </div>
+        <SignedIn>
+          <div className="header-right">
+            <UserButton />
+          </div>
+        </SignedIn>
       </header>
-      <ChatWindow />
+      <SignedOut>
+        <SignInButton>
+          <button className="signin-btn">Log In</button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <ChatWindow />
+      </SignedIn>
     </div>
   );
 }
