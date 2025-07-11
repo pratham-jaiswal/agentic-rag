@@ -2,29 +2,29 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from entities.variables import AGENT_NAME, TOP_K, ALLOWED_ORIGINS, ORG_NAME
-from entities.embedder import embedder
-from entities.llm import llm
-from fastapi import FastAPI, HTTPException
+from entities.variables import AGENT_NAME, TOP_K, ALLOWED_ORIGINS, ORG_NAME, FAISS_INDEX_DIR
+from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi import Depends, FastAPI, HTTPException, Response, status
+from typing import TypedDict, Optional, List, Annotated
+from langgraph.graph import MessagesState, StateGraph
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_community.vectorstores import FAISS
-from langgraph.graph import MessagesState, StateGraph
-from langchain_core.messages import AIMessage, SystemMessage
-from langchain_core.tools import tool
 from langgraph.prebuilt import create_react_agent
+from entities.embedder import embedder
+from langchain_core.tools import tool
 from pydantic import BaseModel
-from typing import TypedDict, Optional, List, Annotated
+from entities.llm import llm
+from typing import Annotated
 import traceback
 import base64
 import json
+import jwt
 import os
 
 app = FastAPI()
+security = HTTPBearer()
 
-FAISS_INDEX_DIR = os.getenv("FAISS_INDEX_DIR")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
-
-print(ALLOWED_ORIGINS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
@@ -32,6 +32,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+CLERK_PEM_PUBLIC_KEY = os.getenv("CLERK_PEM_PUBLIC_KEY")
 
 try:
     vectorstore = FAISS.load_local(
@@ -43,7 +45,6 @@ try:
 except Exception as e:
     print("Failed to load FAISS index:", e)
     raise e
-
 
 class Payload(BaseModel):
     chat_history: List[dict]
@@ -85,7 +86,7 @@ def rag_agent_node():
         - You may reply briefly to greetings but must not offer any unsolicited help.
         - For basic greetings, do not call the `query_vectorstore` tool, and do not pass anything to `source_pdfs` or `source_images`
         
-        Your first action after a user question (not greetings) must be to call `query_vectorstore`.
+        Your first action after a user question (not greetings) must be to call `query_vectorstore` tool.
     """
 
     agent = create_react_agent(
@@ -104,7 +105,7 @@ def structured_response_agent(state: MessagesState):
             Your task is to convert a json response into a structured response.
             If its just a greeting, keep 'source_pdfs' and 'source_images' empty.
         """), 
-        state["messages"][-1]
+        HumanMessage(content=state["messages"][-1].content)
     ])
 
     res_json = {
@@ -123,8 +124,11 @@ def structured_response_agent(state: MessagesState):
     }
 
 @app.post("/query")
-async def call_agent(req: Payload):
+async def call_agent(req: Payload, 
+                     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
+                     response: Response):
     try:
+        jwt.decode(credentials.credentials, key=CLERK_PEM_PUBLIC_KEY, algorithms=['RS256'])
         agent = rag_agent_node()
 
         workflow = StateGraph(MessagesState)
@@ -146,7 +150,9 @@ async def call_agent(req: Payload):
         return {
             "result": res
         }
+    except jwt.exceptions.PyJWTError:
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return {"message": "Invalid token"}
     except Exception as e:
-        print(f"Error: {e}")
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

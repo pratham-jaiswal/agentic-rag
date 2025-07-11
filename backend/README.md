@@ -2,6 +2,8 @@
 
 - Copy the contents ftom `.env.example` to `.env`.
 - Replace the value of `OPENAI_API_KEY` with your OpenAI API key.
+- Replace the value of `CLERK_PEM_PUBLIC_KEY` with your Clerk "JWKS Public Key", all in one line using `\n` for new lines.
+    <img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/12072025/clerk%20jwks%20pem%20public%20key.png" width="600">
 - `SOURCE_DOC_DIR` defines the directory where the source PDFs are stored.
 - `IMAGE_DIR` defines the directory where the extracted images are stored.
 - `OPENAI_MODEL` defines the OpenAI model to use for the LLM. ([guide](https://platform.openai.com/docs/models))

@@ -10,9 +10,10 @@ This is a Agentic RAG web app. This indexes the PDF text and images using a vect
 
 ## Screenshots
 
-<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/08072025/empty.png" width="600">
-<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/08072025/chat.png" width="600">
-<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/08072025/open_image.png" width="600">
+<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/12072025/home.png" width="600">
+<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/12072025/nochat.png" width="600">
+<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/12072025/chat.png" width="600">
+<img src="https://file.garden/aATRZRm2KRQR_hmq/Agentic%20RAG/12072025/chat_image.png" width="600">
 
 ## License
 
