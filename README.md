@@ -22,8 +22,12 @@ This is a Agentic RAG web app. This indexes the PDF text and images using a vect
 
 This project is licensed under the [MIT License](https://github.com/pratham-jaiswal/agentic-rag/blob/main/LICENSE).
 
-## Support
+## 💖 Support My Work
 
-Your support helps keep projects alive and growing — and you get rewarded with exclusive early access 🚀
+If this project was useful to you in any way, such as for a school or college project, capstone, personal use, or anything else, please consider supporting my work.
 
-<a href="https://www.patreon.com/c/maxxdevs/membership"><img width="200px" src="https://res.cloudinary.com/dhzmockpa/image/upload/v1745678642/PATREON_Lockup_Horizontal_BLACK_RGB_rgl86v.svg" alt="Patreon" /></a>
+You can make a **one-time, non-subscription donation** by buying a post from my [Patreon collection](https://www.patreon.com/collection/1819237).
+
+Your support helps me keep creating and sharing open-source projects like this. Thank you! 🙏
+
+<a href="https://www.patreon.com/MaxxDevs"><img width="200px" src="https://res.cloudinary.com/dhzmockpa/image/upload/v1745678642/PATREON_Lockup_Horizontal_BLACK_RGB_rgl86v.svg" alt="Patreon" /></a>
