@@ -24,7 +24,7 @@ This project is licensed under the [MIT License](https://github.com/pratham-jais
 
 ## 💖 Support My Work
 
-If this project was useful to you in any way, such as for a school or college project, capstone, personal use, or anything else, please consider supporting my work.
+If this project was useful to you in any way, such as for a school or college project, learning, personal use, or anything else, please consider supporting my work.
 
 You can make a **one-time, non-subscription donation** by buying a post from my [Patreon collection](https://www.patreon.com/collection/1819237).
 
