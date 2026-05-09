@@ -4,6 +4,7 @@ unstructured[all-docs]
 pyjwt[crypto]
 
 python-dotenv==1.2.2
+python-dotenv==1.2.2
 
 langchain-community==0.4.1
 langchain-core==1.3.3
